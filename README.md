@@ -101,6 +101,8 @@ done creating the DB
 		- define api fields 
 		- define readonly fields 
 
+# step 7: Register current routes
+
 
 # step : Authentication and Authorization with JWT
 
