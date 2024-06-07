@@ -1,3 +1,9 @@
+# serializer are responsible for 3 main things: 
+    # transforming data (serializing and deserializing), 
+    # Validating Data- ensuring the data is correct before saving it to the DB 
+    # Saving and Updating Instances- 
+    
+
 from rest_framework import serializers
 from core.user.models import User
 
