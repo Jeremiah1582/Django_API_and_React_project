@@ -7,7 +7,7 @@ from core.user.serializers import UserSerializer
 class LoginSerializer(TokenObtainPairSerializer):
     
     def validate(self, attrs): #overriding. func call when is_valid is called 
-        data = super().validate(attrs) #calling the original validate method
+        data = super().validate(attrs) #calling the parent class validate method
         
         refresh= self.get_token(self.user)
         data['user']= UserSerializer(self.user).data #added to the validated data

@@ -104,9 +104,11 @@ done creating the DB
 # step 7: Register current routes
 
 
+
 # step : Authentication and Authorization with JWT
 
 	- configure settings.py 
+	- 
 
 
 

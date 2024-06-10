@@ -6,12 +6,14 @@
 
 from rest_framework import serializers
 from core.user.models import User
+from core.abstract.serializers import AbstractSerializer
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(AbstractSerializer):
     '''this class is used to serialize and deserialize data to and from a python dictionary so the data can be processed by the python backend or stored in the Database '''
-    id = serializers.UUIDField(source='public_id', read_only= True, format='hex')
-    created= serializers.DateTimeField(read_only= True)
-    updated= serializers.DateTimeField(read_only= True)
+    # id = serializers.UUIDField(source='public_id', read_only= True, format='hex')
+    # created= serializers.DateTimeField(read_only= True)
+    # updated= serializers.DateTimeField(read_only= True)    xall defined in AbstractSerialiizerclass
+    
     
     class Meta:
         model = User
