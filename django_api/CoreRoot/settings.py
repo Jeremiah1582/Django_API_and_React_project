@@ -31,25 +31,24 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    # DRF
-     'rest_framework',
-    # JWT 
-     'rest_framework_simplejwt', 
     # CORS
     'corsheaders',
+    # DRF
+    'rest_framework',
+    # JWT 
+    'rest_framework_simplejwt', 
     # My  APPS
     'core',
-    'core.user', 
+    'core.user',
     'core.auth', 
     'core.post'
-    
 ]
 
 ...

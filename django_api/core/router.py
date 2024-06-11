@@ -1,19 +1,26 @@
 from rest_framework import routers
 from core.user.viewsets import UserViewset
-from core.auth.viewsets.register import RegisterViewSet
-from core.auth.viewsets import LoginViewSet, RefreshViewSet #shorter syntax due to viewset __init__.py file
 from core.post.viewsets import PostViewSet
+from core.auth.viewsets.register import RegisterViewSet
+from core.auth.viewsets.login import LoginViewSet 
+from core.auth.viewsets.refresh import RefreshViewSet
 
-from pathlib import Path
 
 router= routers.SimpleRouter()
-
+# USER
 router.register(
     prefix= r'user', #name of endpoint 
     viewset=UserViewset, #viewset class
     basename='user' #helps django with registry purposes
     ) 
+# POSTS
+router.register(
+    prefix=r'post',
+    viewset= PostViewSet,
+    basename='post'
+)
 
+# AUTH 
 router.register(
     prefix= r'auth/register', 
     viewset=RegisterViewSet, 
@@ -31,11 +38,7 @@ router.register(
     viewset= RefreshViewSet,
     basename='auth-refresh'
 )
-router.register(
-    prefix=r'post',
-    viewset= PostViewSet,
-    basename='post'
-)
+
 
 urlpatterns = [
     *router.urls,

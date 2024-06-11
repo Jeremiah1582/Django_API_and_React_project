@@ -1,1 +1,0 @@
-from .viewsets import PostViewSet
