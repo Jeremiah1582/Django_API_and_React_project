@@ -3,7 +3,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 import uuid
-from core.user.models import User
+
 
 # Create your models here.
 class AbstractManager(models.Manager):
@@ -13,7 +13,7 @@ class AbstractManager(models.Manager):
         try: 
             instance= self.get(public_id=_id)
             return instance
-        except (ValueError, ObjectDoesNotExist, TypeError):
+        except ( ObjectDoesNotExist,ValueError, TypeError):
             return Http404
         
 
@@ -25,7 +25,7 @@ class AbstractModel(models.Model):
     objects = AbstractManager()
     
     class Meta: 
-        abstract= True
+        abstract= True #stops postgres creating a table for AbstractModel
 
     
 

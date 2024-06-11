@@ -2,7 +2,7 @@ from rest_framework import routers
 from core.user.viewsets import UserViewset
 from core.auth.viewsets.register import RegisterViewSet
 from core.auth.viewsets import LoginViewSet, RefreshViewSet #shorter syntax due to viewset __init__.py file
-
+from core.post.viewsets import PostViewSet
 
 from pathlib import Path
 
@@ -21,15 +21,20 @@ router.register(
     )
 
 router.register(
-    prefix='auth/login',
+    prefix=r'auth/login',
     viewset=LoginViewSet,
     basename= 'auth-login'
     )
 
 router.register(
-    prefix='auth/refresh',
+    prefix=r'auth/refresh',
     viewset= RefreshViewSet,
     basename='auth-refresh'
+)
+router.register(
+    prefix=r'post',
+    viewset= PostViewSet,
+    basename='post'
 )
 
 urlpatterns = [
