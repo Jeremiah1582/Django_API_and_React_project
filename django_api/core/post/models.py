@@ -14,6 +14,7 @@ class Post(AbstractModel):
     # title=models.CharField(max_length=255)
     body= models.TextField()
     edited=models.BooleanField(default=False)
+    
         
     objects= PostManager()
     
