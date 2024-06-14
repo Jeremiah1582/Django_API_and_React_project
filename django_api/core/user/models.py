@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from core.abstract.models import AbstractManager, AbstractModel
 # Create your models here.
+from core.post.models import Post
+from django.conf import settings
 
 
 class UserManager(BaseUserManager, AbstractManager):
@@ -64,6 +66,11 @@ class User(AbstractBaseUser, PermissionsMixin, AbstractModel):
     bio = models.TextField(null=True)
     avatar = models.ImageField(null=True)
 
+    posts_liked = models.ManyToManyField(
+        to='core_post.Post', #Target of M2M relationship 
+        related_name='liked_by' #reverse relation from the Post model back to the model where this field is defined
+        ) #return a queryset of Post instances that are related to the instance of the model where this field is defined.
+
     # created= models.DateTimeField(auto_now= True)    # defined in AbstractModel
     # updated= models.DateTimeField(auto_now_add=True) # defined in AbstractModel
   
@@ -79,4 +86,17 @@ class User(AbstractBaseUser, PermissionsMixin, AbstractModel):
     @property
     def name(self): 
         return f'{self.first_name} , {self.last_name}'
+    
+
+    def like(self, post): 
+        '''like the post if not already liked'''
+        return self.posts_liked.add(post)
+    
+    def remove_like(self, post): 
+        '''remove a like from the post'''
+        return self.posts_liked.remove(post)
+    
+    def has_liked(self, post): 
+        """Return True if the User has liked a post : else False"""
+        return self.posts_liked.filter(pk=post.pk).exists()
     

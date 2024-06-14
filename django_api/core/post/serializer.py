@@ -8,7 +8,10 @@ from core.user.serializers import UserSerializer
 class PostSerializer(AbstractSerializer): 
     '''inherits id, created and updated '''
     author = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
-
+    liked=serializers.SerializerMethodField()
+    likes_count=serializers.SerializerMethodField()
+    
+    
     def validate_author(self,value):
         if self.context['request'].user !=value:
             raise ValidationError('you can not create a post for another user')
@@ -28,8 +31,10 @@ class PostSerializer(AbstractSerializer):
         instance = super().update(instance, validated_data)
         return instance
     
+    def get_likes_count(self, instance): 
+        return instance.liked_by.count()
         
     class Meta: 
         model = Post
-        fields=['id', 'author', 'body', 'edited', 'created', 'updated']
+        fields=['id', 'author', 'body', 'edited', 'created', 'updated', 'liked', 'like_count']
         read_only_fields= ['edited'] 
