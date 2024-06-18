@@ -109,9 +109,3 @@ done creating the DB
 
 	- configure settings.py 
 	- 
-
-
-
-
-
-

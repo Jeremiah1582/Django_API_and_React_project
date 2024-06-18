@@ -20,7 +20,7 @@ class UserViewset(AbstractViewSet):
         return User.objects.exclude(is_superuser=True)
 
     def get_object(self):
-        obj= User.objects.get_object_by_public_id(self.kwargs['pk']) #extracting pk from a route      
+        obj= User.objects.get_object_by_id(self.kwargs['pk']) #extracting pk from a route      
         self.check_object_permissions(self.request, obj)
         return obj
     

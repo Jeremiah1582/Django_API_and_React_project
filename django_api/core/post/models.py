@@ -15,8 +15,6 @@ class Post(AbstractModel):
     body= models.TextField()
     edited=models.BooleanField(default=False)
     
-     
-        
     objects= PostManager()
     
     def __str__(self): 
