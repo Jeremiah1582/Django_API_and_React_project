@@ -19,6 +19,10 @@ class Comment(AbstractModel):
     def __str__(self) -> str:
         return f'{self.author.name}'
     
+    class Meta:
+        db_table = 'core_comment'
+      
+    
 
     
     

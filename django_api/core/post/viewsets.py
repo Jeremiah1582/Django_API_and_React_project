@@ -1,6 +1,6 @@
 from core.abstract.viewsets import AbstractViewSet
 # Create your views here.
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from core.post.models import Post 
 from core.post.serializer import PostSerializer
 from rest_framework.response import Response
@@ -9,11 +9,12 @@ from rest_framework import status
 class PostViewSet(AbstractViewSet): 
     http_method_names=['post','get', 'put', 'delete']
     serializer_class = PostSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     
     
     def get_queryset(self): 
         '''get all posts '''
+      
         posts = Post.objects.all()
         return posts
     

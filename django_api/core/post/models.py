@@ -21,7 +21,7 @@ class Post(AbstractModel):
         return f'{self.author}-{self.created}-{self.title}-' 
     
     class Meta:
-        db_table = 'core.post'
+        db_table = 'core_post'
         
     def list_who_liked_post(self, post):
         return post.liked_by.all()
