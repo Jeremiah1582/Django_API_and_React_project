@@ -7,7 +7,7 @@ from core.comment.serializer import CommentSerializer
 class CommentViewSet(AbstractViewSet):
     http_method_names=['get', 'post', 'put', 'delete']
     serializer_class = CommentSerializer
-    queryset = Comment.objects.all()
+ 
     # def get_queryset(self):
     #     comment = 
     #     return comment    
