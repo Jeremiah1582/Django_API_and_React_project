@@ -4,7 +4,7 @@ from core.post.viewsets import PostViewSet
 from core.auth.viewsets.register import RegisterViewSet
 from core.auth.viewsets.login import LoginViewSet 
 from core.auth.viewsets.refresh import RefreshViewSet
-
+from core.comment.viewsets import CommentViewSet
 
 router= routers.SimpleRouter()
 # USER
@@ -37,6 +37,11 @@ router.register(
     prefix=r'auth/refresh',
     viewset= RefreshViewSet,
     basename='auth-refresh'
+)
+router.register(
+    prefix=r'comment',
+    viewset= CommentViewSet,
+    basename='comment'
 )
 
 
