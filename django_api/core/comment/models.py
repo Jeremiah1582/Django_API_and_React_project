@@ -14,7 +14,7 @@ class Comment(AbstractModel):
     author= models.ForeignKey(to = settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     edited = models.BooleanField(default= False)
         
-    objects= CommentManager
+    objects= CommentManager()
     
     def __str__(self) -> str:
         return f'{self.author.name}'
