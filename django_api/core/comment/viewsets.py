@@ -15,5 +15,4 @@ class CommentViewSet(AbstractViewSet):
     def get_obj(self):
         obj=Comment.objects.get_object_by_id(self.kwargs['pk'])
         self.check_object_permissions(self.request,obj)
-        
         return obj

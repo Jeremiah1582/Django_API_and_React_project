@@ -24,8 +24,8 @@ class CommentSerializer(AbstractSerializer):
         return value
     
     def to_representation(self, instance):
-        rep = super().to_representation(instance) # Returnse like object 
-        author= User.objects.get_object_by_id(rep['author'])
+        rep = super().to_representation(instance) # Returns - like object 
+        author= User.objects.get_object_by_id(rep['author']) #
         rep['author'] = UserSerializer(author).data
         
         return rep 
@@ -34,5 +34,8 @@ class CommentSerializer(AbstractSerializer):
         model = Comment
         fields= '__all__' #all the fields that can be included in req or res 
         read_only_fields=["edited"]
+        
+        
+
 
        
