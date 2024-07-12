@@ -11,6 +11,9 @@ class CommentViewSet(AbstractViewSet):
     serializer_class = CommentSerializer
     permission_classes = (AllowAny,)
     
+     
+    def get_queryset(self):
+        pass
     
     def get_obj(self):
         obj=Comment.objects.get_object_by_id(self.kwargs['pk'])
