@@ -13,9 +13,9 @@ from rest_framework import status
 # Create your views here.
 
 class CommentViewSet(AbstractViewSet):
-    http_method_names=['get', 'post', 'put', 'delete']
+    http_method_names=('get', 'post', 'put', 'delete')
     serializer_class = CommentSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (UserPermission,)
     
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data = request.data)

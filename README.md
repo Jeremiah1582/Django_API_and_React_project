@@ -36,7 +36,7 @@
 			"django.middleware.common.CommonMiddleware",
 		...
 
-	add to the end of settings.py
+	next, add the following code to the end of settings.py
 
 		CORS_ALLOWED_ORIGINS = ["https://<FRONTEND_SERVER_URL>:<PORT>"]
 
