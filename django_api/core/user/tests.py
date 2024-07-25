@@ -15,7 +15,7 @@ def create_superuser_utility_func(user_data):
     return test_super_user
     
 
-class test_User_Model(TestCase): 
+class Test_User_Model(TestCase): 
     '''unit tests related to the user module function'''
     
     def test_create_user_method(self): 
