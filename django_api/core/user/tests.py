@@ -1,6 +1,6 @@
 from django.test import TestCase
 from core.user.models import User
-
+import pytest
 # Create your tests here.
 # utility function
 user_data={'first_name':'test1', 'last_name':'testing1', 'email':'123@123.com', 'username':'tester1212', 'password':'test_password123'}
@@ -18,6 +18,7 @@ def create_superuser_utility_func(user_data):
 class Test_User_Model(TestCase): 
     '''unit tests related to the user module function'''
     
+    @pytest.mark.django_db
     def test_create_user_method(self): 
         '''testing create_user() method in core.user.modules'''
         self.assertIsInstance(create_user_utility_func(user_data), User)
