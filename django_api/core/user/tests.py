@@ -3,7 +3,7 @@ from core.user.models import User
 import pytest
 # Create your tests here.
 # utility function
-user_data={'first_name':'test1', 'last_name':'testing1', 'email':'123@123.com', 'username':'tester1212', 'password':'test_password123'}
+user_data={'first_name':'test1', 'last_name':'testing1', 'email':'123@1123.com', 'username':'tester11212', 'password':'test_password123'}
 super_user_data={'first_name':'superuser', 'last_name':'testing_super', 'email':'superuser@123.com', 'username':'SuperTester1212', 'password':'1234567890'}
 
 def create_user_utility_func(user_data):
@@ -17,18 +17,27 @@ def create_superuser_utility_func(user_data):
 
 class Test_User_Model(TestCase): 
     '''unit tests related to the user module function'''
+    def setUp(self):
+        self.user= create_user_utility_func(user_data)
+        self.super_user= create_superuser_utility_func(super_user_data)
     
     @pytest.mark.django_db
     def test_create_user_method(self): 
         '''testing create_user() method in core.user.modules'''
-        self.assertIsInstance(create_user_utility_func(user_data), User)
+        self.assertIsInstance(self.user, User)
+        self.assertEqual(self.user.username, user_data['username'])
+        self.assertEqual(self.user.email, user_data['email'])
+        self.assertEqual(self.user.first_name, user_data['first_name'])
+        self.assertEqual(self.user.last_name, user_data['last_name'])
+        
         
     
     def test_create_super_user_method(self): 
         '''testing to see if a super user is created'''
-        super_user = create_superuser_utility_func(super_user_data)
-        self.assertIsInstance(super_user, User)
-        self.assertEqual(super_user.is_superuser,True)
+       
+        self.assertIsInstance(self.super_user, User)
+        self.assertEqual(self.super_user.is_superuser,True)
+
         
         
 #---------------functional programming --------------
