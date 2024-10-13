@@ -59,25 +59,43 @@ class RegisterViewSetTestCase(TestCase):
     def setUp(self): 
         self.client = APIClient()
         self.register_url = reverse('auth-register-list')
-
-        self.new_user_data = {
+        self.user_data = {
+            'username': 'testuser987',
+            'email': 'test987@example.com',
+            'password': 'testpassword123'
+        }
+        self.user = User.objects.create_user(**self.user_data)
+        
+    def test_register_success(self):
+        new_user_data = {
             'first_name': 'John',
             'last_name': 'Doe',
             'username': 'newuser987',
             'email': 'newuser987@example.com',
-            'password': 'newuserpassword123'
+            'password': 'Newuserpassword123'
         }
-        self.new_user = User.objects.create_user(**self.new_user_data)
-        
-    def test_register_success(self):
-        response = self.client.post(self.register_url, self.new_user)
+        response = self.client.post(self.register_url, new_user_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertTrue(User.objects.filter(email=self.new_user['email']).exists())
+        self.assertTrue(User.objects.filter(email=new_user_data['email']).exists())
 
     def test_register_failure_existing_email(self):
-        response = self.client.post(self.register_url, self.new_user)
+        response = self.client.post(self.register_url, self.user_data)
+        self.assertTrue(User.objects.filter(email=self.user_data['email']).exists())
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def register_fail_existing_username(self): 
-        response = self.client(self.register_url, self.user_data)
+    def test_register_fail_existing_username(self): 
+        response = self.client.post(self.register_url, self.user_data)
+        self.assertTrue(User.objects.filter(username=self.user_data['username']).exists())
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    
+    def test_register_fail_password_too_short(self): 
+        response = self.client.post(self.register_url, self.user_data)
+        self.assertTrue(User.objects.filter(username=self.user_data['username']).exists())
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_register_fail_password_no_uppercase(self): 
+        response = self.client.post(self.register_url, self.user_data)
+        self.assertTrue(User.objects.filter(username=self.user_data['username']).exists())
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    
