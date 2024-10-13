@@ -36,7 +36,27 @@ class AuthViewSetTestCase(TestCase):
             'password': 'wrongpassword'
         })
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+    
+    def test_authenticated_request(self):
+        # First, login to get the token
+        login_response = self.client.post(self.login_url, {
+            'email': self.user_data['email'],
+            'password': self.user_data['password']
+        })
+        token = login_response.data['access']
 
+        # Use the token to access a protected endpoint
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
+        protected_url = reverse('user-list')  # Use a protected endpoint, not login
+        response = self.client.get(protected_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_unauthenticated_request(self):
+        protected_url = reverse('user-list')  # Use a protected endpoint
+        response = self.client.get(protected_url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+    
+    
     def test_refresh_token(self):
         # First, login to get a refresh token
         login_response = self.client.post(self.login_url, {
