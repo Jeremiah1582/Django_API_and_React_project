@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from core.router import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    path('api/', include(
-        ('core.router','core'),# reference to router.py in core app. core in 2nd position is a namespace
-        namespace="core-api") #This allows you to have multiple instances of the same application, each with its own set of named URLs
-        ),
-      
+    # path('api/', include(
+    #     ('core.router','core'),# reference to router.py in core app. core in 2nd position is a namespace
+    #     namespace="core-api") #This allows you to have multiple instances of the same application, each with its own set of named URLs
+    #     ),
+    path('api/', include(router.urls)),
 ]

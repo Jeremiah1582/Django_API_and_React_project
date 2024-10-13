@@ -12,24 +12,56 @@ class RegistrationSerializer(UserSerializer):
         # Use the `create_user` method we wrote earlier for the UserManager to create a new user.
         return User.objects.create_user(**validated_data)
     
+    def validate_first_name(self, value): 
+        error=[]
+        if len(value) < 3: 
+            error.append("!! First name must be at least 3 characters long")
+        if len(error)>0: 
+            raise serializers.ValidationError(error)
+        return value
+    
+    def validate_last_name(self, value): 
+        error=[]
+        if len(value) < 3: 
+            error.append("!! Last name must be at least 3 characters long")
+        if len(error)>0: 
+            raise serializers.ValidationError(error)
+        return value
     
      #any func with validate_. is automatically called when is_valid() is called in DRF
     def validate_password(self, value):
-        if len(value) < 8:
-            # this len() check is redundant! validattion happening in password variable above
-            raise serializers.ValidationError("password must be 8 character or more")
-        
+        error=[]
         if not re.search(r'[A-Z]',value):
-            raise serializers.ValidationError("Password must have at least 1 capital letter")
+            error.append("!! Password must have at least 1 capital letter")
         
         if not re.search(r'[0-9]',value):
-            raise serializers.ValidationError("Password must have at least 1 Number")
+            error.append("!! Password must have at least 1 Number")
+        
+        if len(error)>0: 
+            raise serializers.ValidationError(error)
         
         return value
     
+    def validate_email(self, value):
+        error=[]
+        if User.objects.filter(email=value).exists(): 
+            error.append("!! Email already exists, you are already Registered")
 
-  
-            
+        if len(error)>0: 
+            raise serializers.ValidationError(error)
+        return value
+    
+    def validate_username(self, value):
+        error=[]
+        if User.objects.filter(username=value).exists(): 
+            error.append("!! username already exists")
+    
+        if len(error)>0: 
+            raise serializers.ValidationError(error)
+        return value
+    
+    
+    
     class Meta: 
         model = User
         fields= ['id', 'bio', 'avatar', 'email', 'username', 'first_name',  'password']

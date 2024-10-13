@@ -23,10 +23,10 @@ class RegisterViewSet(ViewSet):
                 "User": serializer.data, 
                 "refresh": res["refresh"],
                 "token": res["access"],
-            }, status= status.HTTP_201_CREATED)
+            }, status=status.HTTP_201_CREATED)
         
         else: 
             return Response(
                 serializer.errors,
-                status=status.HTTP_401_UNAUTHORIZED
+                status=status.HTTP_400_BAD_REQUEST
                 )

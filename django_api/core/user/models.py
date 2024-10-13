@@ -6,6 +6,7 @@ from core.post.models import Post
 from django.conf import settings
 
 
+
 class UserManager(BaseUserManager, AbstractManager):
     
     '''For creating Users and SuperUsers''' 

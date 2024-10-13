@@ -21,6 +21,7 @@ router.register(
     prefix= r'auth/register', 
     viewset=RegisterViewSet, 
     basename= 'auth-register'
+    
     )
 
 router.register(
